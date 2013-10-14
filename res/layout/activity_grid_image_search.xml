@@ -8,9 +8,31 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".GridImageSearchActivity" >
 
-    <TextView
+    <EditText
+        android:id="@+id/etSearchQuery"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:layout_alignParentTop="true"
+        android:gravity="left"
+        android:ems="9" />
+
+    <Button
+        android:id="@+id/btnSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignBaseline="@id/etSearchQuery"
+        android:layout_toRightOf="@+id/etSearchQuery"
+        android:onClick="searchImages"
+        android:text="@string/search" />
+
+    <GridView
+        android:id="@+id/gvImages"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/etSearchQuery"
+        android:layout_below="@+id/etSearchQuery"
+        android:numColumns="3" >
+    </GridView>
 
 </RelativeLayout>
