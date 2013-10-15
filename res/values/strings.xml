@@ -6,5 +6,42 @@
     <string name="hello_world">Hello world!</string>
     <string name="search">Search</string>
     <string name="title_activity_image_display">ImageDisplayActivity</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="advanced_search_options">Advanced search options</string>
+    <string name="image_size">Image size:</string>
+    <string-array name="image_size_array">
+        <item>Small</item>
+        <item >Medium</item>
+        <item >Large</item>
+        <item>Extra-Large</item>
+    </string-array>
+    
+    <string-array name="color_filter_array">
+        <item>Black</item>
+        <item >Blue</item>
+        <item >Brown</item>
+        <item>Grey</item>
+        <item>Green</item>
+        <item>Orange</item>
+        <item>Pink</item>
+        <item>Purple</item>
+        <item>Red</item>
+        <item>Teal</item>
+        <item>White</item>
+        <item>Yellow</item>
+    </string-array>
+      
+    <string-array name="image_type_array">
+        <item>Faces</item>
+        <item >Photo</item>
+        <item >Clipart</item>
+        <item>Lineart</item>
+    </string-array>
+    <string name="color_filter_prompt">Choose a color filter:</string>
+    <string name="color_filter">Color filter: </string>
+    <string name="image_type">Image type: </string>
+    <string name="site_filter">Site filter: </string>
+    <string name="site_filter_hint_text">yahoo.com</string>
+    <string name="save">Save</string>
 
 </resources>

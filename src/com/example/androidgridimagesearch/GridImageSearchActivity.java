@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -56,6 +57,11 @@ public class GridImageSearchActivity extends Activity {
 		
 	}
 
+	public void onSettingsAction(MenuItem mi){
+		Intent i = new Intent(getApplicationContext(), SettingsActivity.class);
+		startActivity(i);
+	}
+	
 	private void setupViews() {
 		etQuery = (EditText) findViewById(R.id.etSearchQuery);
 		gvResults = (GridView) findViewById(R.id.gvImages);
@@ -70,12 +76,19 @@ public class GridImageSearchActivity extends Activity {
 	}
 
 	public void searchImages(View v) {
+		System.out.println("sysouting");
+		Log.i(TAG, "HOLA NEHA");
 		String query = etQuery.getText().toString();
 		Toast.makeText(getApplicationContext(), "Searching for " + query + "..",
 				Toast.LENGTH_SHORT).show();
 		AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
 		String constructedQuery = "https://ajax.googleapis.com/ajax/services/search/images?rsz=8&start=" +
 				0+"&v=1.0&q=" + Uri.encode(query);
+//		String siteFilter = getIntent().getStringExtra("siteFilter");
+//		constructedQuery = constructedQuery +"as_sitesearch="+siteFilter;
+		Log.i(TAG,constructedQuery);
+		
+		
 		asyncHttpClient.get(constructedQuery
 				,
 				new JsonHttpResponseHandler() {
@@ -83,7 +96,7 @@ public class GridImageSearchActivity extends Activity {
 					public void onSuccess(JSONObject response) {
 						JSONArray results = null;
 						Log.i(TAG, "onsuccess!!");
-						Log.i(TAG,"what's repsponse: "+response.toString());
+						Log.i(TAG,"what's response: "+response.toString());
 						
 						try {
 							JSONObject responseData = response.getJSONObject("responseData");
@@ -101,15 +114,7 @@ public class GridImageSearchActivity extends Activity {
 
 					}
 				});
-//		asyncHttpClient.get("http://www.google.com", new AsyncHttpResponseHandler(){
-			
-//			@Override
-//			public void onSuccess(String response){
-//				System.out.println("hellow");
-//				System.out.println(response);
-//				Log.i(TAG, response);
-//			}
-//		});
+
 
 	}
 
