@@ -16,7 +16,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.example.androidgridimagesearch.GridImageSearchActivity"
+            android:name="com.codepath.androidgridimagesearch.GridImageSearchActivity"
             android:label="@string/app_name" >
              <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,11 +25,11 @@
             </intent-filter> 
         </activity>
         <activity
-            android:name="com.example.androidgridimagesearch.ImageDisplayActivity"
+            android:name="com.codepath.androidgridimagesearch.ImageDisplayActivity"
             android:label="@string/title_activity_image_display" >
         </activity>
         <activity
-            android:name="com.example.androidgridimagesearch.SettingsActivity"
+            android:name="com.codepath.androidgridimagesearch.SettingsActivity"
             android:label="@string/title_activity_settings" >
              <!-- <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

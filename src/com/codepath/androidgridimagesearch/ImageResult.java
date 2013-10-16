@@ -1,4 +1,4 @@
-package com.example.androidgridimagesearch;
+package com.codepath.androidgridimagesearch;
 
 import java.io.Serializable;
 import java.util.ArrayList;

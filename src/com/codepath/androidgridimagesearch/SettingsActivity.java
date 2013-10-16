@@ -1,7 +1,9 @@
-package com.example.androidgridimagesearch;
+package com.codepath.androidgridimagesearch;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import com.example.androidgridimagesearch.R;
 
 import android.app.Activity;
 import android.content.Intent;

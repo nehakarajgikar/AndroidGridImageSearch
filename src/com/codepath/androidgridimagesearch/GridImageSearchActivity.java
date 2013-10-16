@@ -1,4 +1,4 @@
-package com.example.androidgridimagesearch;
+package com.codepath.androidgridimagesearch;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -22,6 +22,7 @@ import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.Toast;
 
+import com.example.androidgridimagesearch.R;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 

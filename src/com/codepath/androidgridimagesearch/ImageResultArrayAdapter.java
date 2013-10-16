@@ -1,7 +1,8 @@
-package com.example.androidgridimagesearch;
+package com.codepath.androidgridimagesearch;
 
 import java.util.List;
 
+import com.example.androidgridimagesearch.R;
 import com.loopj.android.image.SmartImageView;
 
 import android.content.Context;
