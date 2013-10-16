@@ -35,8 +35,8 @@ public class GridImageSearchActivity extends Activity {
 	ArrayList<ImageResult> imageResults = new ArrayList<ImageResult>();
 	ImageResultArrayAdapter imageAdapter;
 	Settings settings;
-	int page = 0;
-	
+	// int page = 0;
+
 	private static final int REQUEST_CODE = 100;
 
 	@Override
@@ -47,26 +47,15 @@ public class GridImageSearchActivity extends Activity {
 		setupViews();
 		imageAdapter = new ImageResultArrayAdapter(this, imageResults);
 		gvResults.setAdapter(imageAdapter);
-		
+
 		ImageItemClickListener listener = new ImageItemClickListener();
 		gvResults.setOnItemClickListener(listener);
-		
-		MyNewEndlessScrollListener scrollListener = new MyNewEndlessScrollListener();
+
+		ImageEndlessScrollListener scrollListener = new ImageEndlessScrollListener();
 		gvResults.setOnScrollListener(scrollListener);
 	}
 
-	private class ImageItemClickListener implements OnItemClickListener {
 
-		@Override
-		public void onItemClick(AdapterView<?> adapter, View parent, int position,
-				long rowId) {
-			Intent i = new Intent(getApplicationContext(), ImageDisplayActivity.class);
-			ImageResult imageResult = imageResults.get(position);
-			i.putExtra("result", imageResult);
-			startActivity(i);
-		}
-
-	}
 
 	public void onSettingsAction(MenuItem mi) {
 		Intent i = new Intent(getApplicationContext(), SettingsActivity.class);
@@ -81,8 +70,8 @@ public class GridImageSearchActivity extends Activity {
 
 		if (requestCode == REQUEST_CODE) {
 			if (resultCode == RESULT_OK) {
-//				Toast.makeText(getApplicationContext(),
-//						"returned from settings activity", Toast.LENGTH_SHORT).show();
+				// Toast.makeText(getApplicationContext(),
+				// "returned from settings activity", Toast.LENGTH_SHORT).show();
 				settings = (Settings) data.getSerializableExtra("settings");
 				Log.d(TAG, "In on activity result, settings is: " + settings);
 			}
@@ -98,43 +87,22 @@ public class GridImageSearchActivity extends Activity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.grid_image_search, menu);
 		return true;
 	}
 
 	public void searchImages(View v) {
-		imageResults.clear();
-		
-		Log.i(TAG,"In search images, etquery is: "+etQuery.getText().toString());
+		imageAdapter.clear();
+
+		Log.i(TAG, "In search images, etquery is: " + etQuery.getText().toString());
 		String query = etQuery.getText().toString();
 		Toast.makeText(getApplicationContext(), "Searching for " + query + "..",
 				Toast.LENGTH_SHORT).show();
-		
-		String constructedQuery = constructQuery(query, 0);
-		
-		Log.i(TAG, constructedQuery);
-		
-		makeRequest(constructedQuery);
-		
-	}
-	
-	private class MyNewEndlessScrollListener extends EndlessScrollListener{
 
-		@Override
-		public void onLoadMore(int page, int totalItemsCount) {
-			Log.i(TAG,"in On load more");
-			Toast.makeText(
-					getApplicationContext(),
-					"on loading more page : " + page + " totalItems : "
-							+ totalItemsCount, Toast.LENGTH_SHORT).show();
-			String query = etQuery.getText()
-					.toString();
-//			String constructedQuery = 
-			makeRequest(constructQuery(query, totalItemsCount));
-			
-		}
-		
+		String constructedQuery = constructQuery(query, 0);
+		Log.i(TAG, constructedQuery);
+		makeRequest(constructedQuery);
+
 	}
 
 	public void makeRequest(String query) {
@@ -148,16 +116,39 @@ public class GridImageSearchActivity extends Activity {
 				try {
 					JSONObject responseData = response.getJSONObject("responseData");
 					results = responseData.getJSONArray("results");
-
 					imageAdapter.addAll(ImageResult.fromJSONArray(results));
-//					Log.i(TAG, imageResults.toString());
 				} catch (JSONException e) {
 					Log.e(TAG, e.getMessage());
 					e.printStackTrace();
+					Toast.makeText(getApplicationContext(),
+							"Uh-oh some problem while getting data for query",
+							Toast.LENGTH_SHORT).show();
 				}
 
 			}
 		});
+	}
+	
+	private class ImageItemClickListener implements OnItemClickListener {
+
+		@Override
+		public void onItemClick(AdapterView<?> adapter, View parent, int position,
+				long rowId) {
+			Intent i = new Intent(getApplicationContext(), ImageDisplayActivity.class);
+			ImageResult imageResult = imageResults.get(position);
+			i.putExtra("result", imageResult);
+			startActivity(i);
+		}
+
+	}
+	
+	private class ImageEndlessScrollListener extends EndlessScrollListener {
+		@Override
+		public void onLoadMore(int page, int totalItemsCount) {
+			Log.i(TAG, "in On load more");
+			String query = etQuery.getText().toString();
+			makeRequest(constructQuery(query, totalItemsCount));
+		}
 	}
 
 	private String constructQuery(String query, int page) {
