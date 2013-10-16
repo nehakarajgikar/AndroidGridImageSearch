@@ -36,7 +36,7 @@ public class GridImageSearchActivity extends Activity {
 	ImageResultArrayAdapter imageAdapter;
 	Settings settings;
 	int page = 0;
-
+	
 	private static final int REQUEST_CODE = 100;
 
 	@Override
@@ -46,11 +46,13 @@ public class GridImageSearchActivity extends Activity {
 		setContentView(R.layout.activity_grid_image_search);
 		setupViews();
 		imageAdapter = new ImageResultArrayAdapter(this, imageResults);
-
 		gvResults.setAdapter(imageAdapter);
+		
 		ImageItemClickListener listener = new ImageItemClickListener();
 		gvResults.setOnItemClickListener(listener);
 		
+		MyNewEndlessScrollListener scrollListener = new MyNewEndlessScrollListener();
+		gvResults.setOnScrollListener(scrollListener);
 	}
 
 	private class ImageItemClickListener implements OnItemClickListener {
@@ -114,7 +116,7 @@ public class GridImageSearchActivity extends Activity {
 		Log.i(TAG, constructedQuery);
 		
 		makeRequest(constructedQuery);
-		gvResults.setOnScrollListener(new MyNewEndlessScrollListener());
+		
 	}
 	
 	private class MyNewEndlessScrollListener extends EndlessScrollListener{
@@ -128,8 +130,8 @@ public class GridImageSearchActivity extends Activity {
 							+ totalItemsCount, Toast.LENGTH_SHORT).show();
 			String query = etQuery.getText()
 					.toString();
-			String constructedQuery = constructQuery(query, page);
-			makeRequest(constructedQuery.toString());
+//			String constructedQuery = 
+			makeRequest(constructQuery(query, totalItemsCount));
 			
 		}
 		
