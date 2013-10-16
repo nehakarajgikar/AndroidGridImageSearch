@@ -32,7 +32,10 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/etSearchQuery"
         android:layout_below="@+id/etSearchQuery"
-        android:numColumns="3" >
+        android:numColumns="3"
+        android:overScrollMode="ifContentScrolls"
+        android:scrollbars="vertical"
+       >
     </GridView>
 
 </RelativeLayout>

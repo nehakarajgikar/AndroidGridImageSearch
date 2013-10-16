@@ -102,15 +102,27 @@
         android:layout_alignParentEnd="true"
         android:hint="@string/site_filter_hint_text"
         android:inputType="textUri" />
+    
+    <Button
+        android:id="@+id/btn_settings_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_settings_site_filter"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="40dp"
+        android:onClick="onCancelSettings"
+        android:text="@string/cancel" />
 
     <Button
         android:id="@+id/btn_settings_save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_settings_site_filter"
-        android:layout_centerHorizontal="true"
+        android:layout_toRightOf="@id/btn_settings_cancel"
         android:layout_marginTop="40dp"
+        android:layout_marginRight="20dp"
         android:onClick="onSaveSettings"
         android:text="@string/save" />
+    
 
 </RelativeLayout>

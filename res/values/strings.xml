@@ -10,16 +10,18 @@
     <string name="advanced_search_options">Advanced search options</string>
     <string name="image_size">Image size:</string>
     <string-array name="image_size_array">
+        <item>All</item>
         <item>Small</item>
-        <item >Medium</item>
-        <item >Large</item>
+        <item>Medium</item>
+        <item>Large</item>
         <item>Extra-Large</item>
     </string-array>
     
     <string-array name="color_filter_array">
+        <item>None</item>
         <item>Black</item>
-        <item >Blue</item>
-        <item >Brown</item>
+        <item>Blue</item>
+        <item>Brown</item>
         <item>Grey</item>
         <item>Green</item>
         <item>Orange</item>
@@ -32,9 +34,10 @@
     </string-array>
       
     <string-array name="image_type_array">
-        <item>Faces</item>
-        <item >Photo</item>
-        <item >Clipart</item>
+        <item>All</item>
+        <item>Face</item>
+        <item>Photo</item>
+        <item>Clipart</item>
         <item>Lineart</item>
     </string-array>
     <string name="color_filter_prompt">Choose a color filter:</string>
@@ -43,5 +46,6 @@
     <string name="site_filter">Site filter: </string>
     <string name="site_filter_hint_text">yahoo.com</string>
     <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
 
 </resources>
