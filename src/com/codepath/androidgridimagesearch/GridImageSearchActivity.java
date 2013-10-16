@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
@@ -35,7 +36,6 @@ public class GridImageSearchActivity extends Activity {
 	ArrayList<ImageResult> imageResults = new ArrayList<ImageResult>();
 	ImageResultArrayAdapter imageAdapter;
 	Settings settings;
-	// int page = 0;
 
 	private static final int REQUEST_CODE = 100;
 
@@ -50,6 +50,25 @@ public class GridImageSearchActivity extends Activity {
 
 		ImageItemClickListener listener = new ImageItemClickListener();
 		gvResults.setOnItemClickListener(listener);
+		gvResults.setOnItemLongClickListener(new OnItemLongClickListener() {
+
+			@Override
+			public boolean onItemLongClick(AdapterView<?> view, View convertView, int position,
+					long rowId) {
+				Toast.makeText(getApplicationContext(), "in long click"+imageResults.get(position), Toast.LENGTH_SHORT).show();	
+				
+				Intent intent = new Intent(Intent.ACTION_SEND);
+//				intent.setType("image/*");
+				intent.setType("text/plain");
+				intent.putExtra(Intent.EXTRA_SUBJECT, "Cool image url!");
+				intent.putExtra(Intent.EXTRA_TEXT, imageResults.get(position).getFullUrl());
+				intent.putExtra(Intent.ACTION_ATTACH_DATA, Uri.parse(imageResults.get(position).getFullUrl()));
+				Intent mailer = Intent.createChooser(intent, null);
+				startActivity(mailer);
+//				Intent i = new Intent(Intent.ACTION_ATTACH_DATA,Uri.parse(imageResults.get(position).getFullUrl()));
+				return true;
+			}
+		});
 
 		ImageEndlessScrollListener scrollListener = new ImageEndlessScrollListener();
 		gvResults.setOnScrollListener(scrollListener);
