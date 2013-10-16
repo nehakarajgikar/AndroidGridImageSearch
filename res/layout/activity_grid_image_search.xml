@@ -8,34 +8,39 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".GridImageSearchActivity" >
 
-    <EditText
-        android:id="@+id/etSearchQuery"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:gravity="left"
-        android:ems="9" />
+        android:orientation="horizontal" 
+        android:id="@+id/linearLayout">
 
-    <Button
-        android:id="@+id/btnSearch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignBaseline="@id/etSearchQuery"
-        android:layout_toRightOf="@+id/etSearchQuery"
-        android:onClick="searchImages"
-        android:text="@string/search" />
+        <EditText
+            android:id="@+id/etSearchQuery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="9"
+            android:gravity="left" >
+
+            <requestFocus />
+        </EditText>
+
+        <Button
+            android:id="@+id/btnSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="searchImages"
+            android:text="@string/search" />
+
+    </LinearLayout>
 
     <GridView
         android:id="@+id/gvImages"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/etSearchQuery"
-        android:layout_below="@+id/etSearchQuery"
+        android:layout_below="@id/linearLayout"
         android:numColumns="3"
         android:overScrollMode="ifContentScrolls"
-        android:scrollbars="vertical"
-       >
+        android:scrollbars="vertical" >
     </GridView>
 
 </RelativeLayout>

@@ -69,7 +69,6 @@ public class GridImageSearchActivity extends Activity {
 	public void onSettingsAction(MenuItem mi) {
 		Intent i = new Intent(getApplicationContext(), SettingsActivity.class);
 		if (settings != null) {
-
 			i.putExtra("settings", settings);
 		}
 		startActivityForResult(i, REQUEST_CODE);
@@ -80,8 +79,8 @@ public class GridImageSearchActivity extends Activity {
 
 		if (requestCode == REQUEST_CODE) {
 			if (resultCode == RESULT_OK) {
-				Toast.makeText(getApplicationContext(),
-						"returned from settings activity", Toast.LENGTH_SHORT).show();
+//				Toast.makeText(getApplicationContext(),
+//						"returned from settings activity", Toast.LENGTH_SHORT).show();
 				settings = (Settings) data.getSerializableExtra("settings");
 				Log.d(TAG, "In on activity result, settings is: " + settings);
 			}
@@ -103,31 +102,37 @@ public class GridImageSearchActivity extends Activity {
 	}
 
 	public void searchImages(View v) {
-		System.out.println("sysouting");
-		Log.i(TAG, "HOLA NEHA");
+		imageResults.clear();
+		
+		Log.i(TAG,"In search images, etquery is: "+etQuery.getText().toString());
 		String query = etQuery.getText().toString();
 		Toast.makeText(getApplicationContext(), "Searching for " + query + "..",
 				Toast.LENGTH_SHORT).show();
 		
 		String constructedQuery = constructQuery(query, 0);
+		
+		Log.i(TAG, constructedQuery);
+		
+		makeRequest(constructedQuery);
+		gvResults.setOnScrollListener(new MyNewEndlessScrollListener());
+	}
+	
+	private class MyNewEndlessScrollListener extends EndlessScrollListener{
 
-		Log.i(TAG, constructedQuery.toString());
-		imageResults.clear();
-		makeRequest(constructedQuery.toString());
-		gvResults.setOnScrollListener(new EndlessScrollListener() {
-
-			@Override
-			public void onLoadMore(int page, int totalItemsCount) {
-				Toast.makeText(
-						getApplicationContext(),
-						"on loading more page : " + page + " totalItems : "
-								+ totalItemsCount, Toast.LENGTH_SHORT).show();
-				String query = ((EditText) findViewById(R.id.etSearchQuery)).getText()
-						.toString();
-				String constructedQuery = constructQuery(query, page);
-				makeRequest(constructedQuery.toString());
-			}
-		});
+		@Override
+		public void onLoadMore(int page, int totalItemsCount) {
+			Log.i(TAG,"in On load more");
+			Toast.makeText(
+					getApplicationContext(),
+					"on loading more page : " + page + " totalItems : "
+							+ totalItemsCount, Toast.LENGTH_SHORT).show();
+			String query = etQuery.getText()
+					.toString();
+			String constructedQuery = constructQuery(query, page);
+			makeRequest(constructedQuery.toString());
+			
+		}
+		
 	}
 
 	public void makeRequest(String query) {
@@ -136,14 +141,14 @@ public class GridImageSearchActivity extends Activity {
 			@Override
 			public void onSuccess(JSONObject response) {
 				JSONArray results = null;
-				Log.i(TAG, "onsuccess!!");
+				Log.i(TAG, "returned with results!!");
 
 				try {
 					JSONObject responseData = response.getJSONObject("responseData");
 					results = responseData.getJSONArray("results");
 
 					imageAdapter.addAll(ImageResult.fromJSONArray(results));
-					Log.i(TAG, imageResults.toString());
+//					Log.i(TAG, imageResults.toString());
 				} catch (JSONException e) {
 					Log.e(TAG, e.getMessage());
 					e.printStackTrace();
@@ -153,7 +158,7 @@ public class GridImageSearchActivity extends Activity {
 		});
 	}
 
-	public String constructQuery(String query, int page) {
+	private String constructQuery(String query, int page) {
 		StringBuffer constructedQuery = new StringBuffer(
 				"https://ajax.googleapis.com/ajax/services/search/images?rsz=8&start=");
 
